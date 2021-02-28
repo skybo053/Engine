@@ -1,0 +1,16 @@
+#helper script to run premake file
+GenerateProjects.bat
+
+#VS2017 project files
+ChernoEngine.sln
+
+ChernoEngine/ChernoEngine.vcxproj
+ChernoEngine/ChernoEngine.vcxproj.filters
+ChernoEngine/ChernoEngine.vcxproj.user
+
+ChernoEngine/SandBox/SandBox.vcxproj
+ChernoEngine/SandBox/SandBox.vcxproj.user
+
+#binary output dirs
+bin/*
+bin-int/*
