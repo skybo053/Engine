@@ -8,8 +8,8 @@ ChernoEngine/ChernoEngine.vcxproj
 ChernoEngine/ChernoEngine.vcxproj.filters
 ChernoEngine/ChernoEngine.vcxproj.user
 
-ChernoEngine/SandBox/SandBox.vcxproj
-ChernoEngine/SandBox/SandBox.vcxproj.user
+SandBox/SandBox.vcxproj
+SandBox/SandBox.vcxproj.user
 
 #binary output dirs
 bin/*
