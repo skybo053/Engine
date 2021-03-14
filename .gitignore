@@ -3,6 +3,7 @@ GenerateProjects.bat
 
 #VS2017 project files
 ChernoEngine.sln
+.vs/
 
 ChernoEngine/ChernoEngine.vcxproj
 ChernoEngine/ChernoEngine.vcxproj.filters
