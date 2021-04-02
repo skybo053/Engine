@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "Pch.h"
 #include "MouseMotionEvent.h"
 
 
@@ -55,6 +55,10 @@ namespace ChernoEngine
       case MouseClickEvent::MouseButton::NONE:
       {
         return "None";
+      }
+      default:
+      {
+        return "Unknown";
       }
     }
   }

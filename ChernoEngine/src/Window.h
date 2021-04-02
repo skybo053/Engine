@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "pch.h"
+#include "Pch.h"
 #include "ChernoEngine/Core.h"
 #include "ChernoEngine/Events/Event.h"
 
