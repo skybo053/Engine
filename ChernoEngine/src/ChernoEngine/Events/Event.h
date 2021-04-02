@@ -64,7 +64,7 @@ namespace ChernoEngine
   
   inline std::ostream& operator<<(std::ostream& pOstream, const Event& pEvent)
   {
-    return pOstream << pEvent.getEventTypeName(pEvent.getEventType()) << ": " << pEvent.toString() << std::endl;
+    return pOstream << pEvent.getEventTypeName(pEvent.getEventType()) << ": " << pEvent.toString();
   }
 
 }
