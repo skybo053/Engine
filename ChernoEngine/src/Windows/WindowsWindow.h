@@ -29,7 +29,7 @@ namespace ChernoEngine
     WindowsWindow(const WindowProps& pWindowProps);
     void shutdown();
     void handleWindowEvent(const SDL_WindowEvent& pEvent) const;
-    MouseClickEvent::MouseButton getMouseButtonClicked(uint8_t pButton) const; 
+    MouseClickEvent::MouseButton getMouseButtonClicked(int pButton) const; 
 
     //members
     SDL_Window* window = nullptr;

@@ -87,28 +87,17 @@ namespace ChernoEngine
           break;
         }
         case SDL_MOUSEBUTTONDOWN:
-        {
-          SDL_MouseButtonEvent vMouseButtonEvent = vSDLEvent.button;
-
-          eventCallback(
-            MouseClickEvent(
-              vMouseButtonEvent.x, 
-              vMouseButtonEvent.y, 
-              getMouseButtonClicked(vMouseButtonEvent.button),
-              MouseClickEvent::MouseAction::RELEASED));
-
-          break;
-        }
         case SDL_MOUSEBUTTONUP:
         {
           SDL_MouseButtonEvent vMouseButtonEvent = vSDLEvent.button;
+          uint8_t vButtonState                   = vMouseButtonEvent.state;
 
           eventCallback(
             MouseClickEvent(
               vMouseButtonEvent.x,
               vMouseButtonEvent.y,
               getMouseButtonClicked(vMouseButtonEvent.button),
-              MouseClickEvent::MouseAction::RELEASED));
+              vButtonState == SDL_PRESSED ? MouseClickEvent::MouseAction::PRESSED : MouseClickEvent::MouseAction::RELEASED));
 
           break;
         }
@@ -133,7 +122,7 @@ namespace ChernoEngine
             MouseMotionEvent(
               vMouseMotionEvent.x,
               vMouseMotionEvent.y,
-              vButtonState == 0 ? MouseClickEvent::MouseButton::NONE :  getMouseButtonClicked(SDL_BUTTON(vButtonState))));
+              vButtonState == 0 ? MouseClickEvent::MouseButton::NONE :  getMouseButtonClicked(vButtonState)));
 
           break;
         }
@@ -162,43 +151,26 @@ namespace ChernoEngine
   }
 
 
-  MouseClickEvent::MouseButton WindowsWindow::getMouseButtonClicked(uint8_t pButton) const
+  MouseClickEvent::MouseButton WindowsWindow::getMouseButtonClicked(int pButtonState) const
   {
-    MouseClickEvent::MouseButton vButtonClicked;
 
-    switch(pButton)
+    if((pButtonState & SDL_BUTTON_RMASK) == SDL_BUTTON_RMASK || pButtonState == SDL_BUTTON_RIGHT)
     {
-      case SDL_BUTTON_LEFT:
-      {
-        vButtonClicked = MouseClickEvent::MouseButton::L_BUTTON;
-        break;
-      }
-      case SDL_BUTTON_MIDDLE:
-      {
-        vButtonClicked = MouseClickEvent::MouseButton::M_BUTTON;
-        break;
-      }
-      case SDL_BUTTON_RIGHT:
-      {
-        vButtonClicked = MouseClickEvent::MouseButton::R_BUTTON;
-        break;
-      }
-      default:
-      {
-        vButtonClicked = MouseClickEvent::MouseButton::NONE;
-      } 
+      return MouseClickEvent::MouseButton::R_BUTTON;
     }
 
-    return vButtonClicked;
-  }
+    if((pButtonState & SDL_BUTTON_MMASK) == SDL_BUTTON_MMASK)
+    {
+      return MouseClickEvent::MouseButton::M_BUTTON;
+    }
 
-  //int WindowsWindow::getMouseMotionButtonState(int pButtonState) const
-  //{
-  //  switch(pButtonState)
-  //  {
-  //    case SDL_BUTTO
-  //  }
-  //}
+    if((pButtonState & SDL_BUTTON_LMASK) == SDL_BUTTON_LMASK)
+    {
+      return MouseClickEvent::MouseButton::L_BUTTON;
+    }
+
+    return MouseClickEvent::MouseButton::NONE;
+  }
 
 
   void WindowsWindow::shutdown()
