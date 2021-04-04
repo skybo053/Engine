@@ -5,8 +5,8 @@
 namespace ChernoEngine
 {
 
-  MouseMotionEvent::MouseMotionEvent(int pXPos, int pYPos, MouseClickEvent::MouseButton pMouseButtonPressed) 
-      : xPos(pXPos), yPos(pYPos), mouseButton(pMouseButtonPressed), Event(EventType::MOUSEMOTIONEVENT)
+  MouseMotionEvent::MouseMotionEvent(int pXPos, int pYPos, std::set<MouseClickEvent::MouseButton> pMouseButtonsDown) 
+      : xPos(pXPos), yPos(pYPos), mouseButtonsDown(pMouseButtonsDown), Event(EventType::MOUSEMOTIONEVENT)
   {
 
   }
@@ -30,9 +30,15 @@ namespace ChernoEngine
   }
 
 
-  MouseClickEvent::MouseButton MouseMotionEvent::getMouseButtonPressed() const
+  std::set<MouseClickEvent::MouseButton> MouseMotionEvent::getMouseButtonsDown() const
   {
-    return mouseButton;
+    return mouseButtonsDown;
+  }
+
+
+  bool MouseMotionEvent::hasMouseButtonsDown() const
+  {
+    return !mouseButtonsDown.empty();
   }
 
 
@@ -68,7 +74,19 @@ namespace ChernoEngine
   {
     std::stringstream vStringStream;
 
-    vStringStream << "X=" << xPos << ", Y=" << yPos << ", MouseButton=" << mouseButtonToString(mouseButton);
+    vStringStream << "X=" << xPos << ", Y=" << yPos << ", Mouse Buttons Down=";
+
+    if(hasMouseButtonsDown())
+    {
+      for(MouseClickEvent::MouseButton vMouseButton : mouseButtonsDown)
+      {
+        vStringStream << mouseButtonToString(vMouseButton) << " ";
+      }
+    }
+    else
+    {
+      vStringStream << mouseButtonToString(MouseClickEvent::MouseButton::NONE);
+    }
 
     return vStringStream.str();
   }

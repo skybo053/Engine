@@ -10,12 +10,14 @@ namespace ChernoEngine
   class MouseMotionEvent : public Event
   {
   public:
-    MouseMotionEvent(int pXPos, int pYPos, MouseClickEvent::MouseButton);
+    MouseMotionEvent(int pXPos, int pYPos, std::set<MouseClickEvent::MouseButton> pMouseButtonsDown);
     ~MouseMotionEvent();
 
     int getXPosition() const;
     int getYPosition() const;
-    MouseClickEvent::MouseButton getMouseButtonPressed() const;
+
+    std::set<MouseClickEvent::MouseButton> getMouseButtonsDown() const;
+    bool hasMouseButtonsDown() const;
 
     std::string toString() const override;
 
@@ -26,7 +28,7 @@ namespace ChernoEngine
     //members
     int xPos;
     int yPos;
-    MouseClickEvent::MouseButton mouseButton;
+    std::set<MouseClickEvent::MouseButton> mouseButtonsDown;
   };
 
 }

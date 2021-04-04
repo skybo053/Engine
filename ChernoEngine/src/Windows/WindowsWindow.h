@@ -5,6 +5,7 @@
 #include "ChernoEngine/Core.h"
 #include "ChernoEngine/Events/Event.h"
 #include "ChernoEngine/Events/MouseClickEvent.h"
+#include "ChernoEngine/Events/MouseMotionEvent.h"
 #include "Window.h"
 
 #include <sdl/SDL.h>
@@ -29,7 +30,9 @@ namespace ChernoEngine
     WindowsWindow(const WindowProps& pWindowProps);
     void shutdown();
     void handleWindowEvent(const SDL_WindowEvent& pEvent) const;
-    MouseClickEvent::MouseButton getMouseButtonClicked(int pButton) const; 
+
+    MouseClickEvent::MouseButton getMouseButtonClicked(const uint8_t pButtonClicked) const; 
+    std::set<MouseClickEvent::MouseButton> setMouseButtonsDown(uint32_t pButtonsDown) const;
 
     //members
     SDL_Window* window = nullptr;

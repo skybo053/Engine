@@ -7,7 +7,6 @@
 #include "ChernoEngine/Events/WindowClosedEvent.h"
 #include "ChernoEngine/Events/KeyEvent.h"
 #include "ChernoEngine/Events/MouseWheelEvent.h"
-#include "ChernoEngine/Events/MouseMotionEvent.h"
 
 
 namespace ChernoEngine
@@ -116,13 +115,13 @@ namespace ChernoEngine
         case SDL_MOUSEMOTION:
         {
           SDL_MouseMotionEvent vMouseMotionEvent = vSDLEvent.motion;
-          int                  vButtonState      = vMouseMotionEvent.state;
+          uint32_t             vButtonsDown      = vMouseMotionEvent.state;
 
           eventCallback(
             MouseMotionEvent(
               vMouseMotionEvent.x,
               vMouseMotionEvent.y,
-              vButtonState == 0 ? MouseClickEvent::MouseButton::NONE :  getMouseButtonClicked(vButtonState)));
+              vButtonsDown == 0 ? std::set<MouseClickEvent::MouseButton>() : setMouseButtonsDown(vButtonsDown)));
 
           break;
         }
@@ -151,25 +150,47 @@ namespace ChernoEngine
   }
 
 
-  MouseClickEvent::MouseButton WindowsWindow::getMouseButtonClicked(int pButtonState) const
+  MouseClickEvent::MouseButton WindowsWindow::getMouseButtonClicked(const uint8_t pButtonClicked) const
   {
-
-    if((pButtonState & SDL_BUTTON_RMASK) == SDL_BUTTON_RMASK || pButtonState == SDL_BUTTON_RIGHT)
+    if(pButtonClicked == SDL_BUTTON_RIGHT)
     {
       return MouseClickEvent::MouseButton::R_BUTTON;
     }
 
-    if((pButtonState & SDL_BUTTON_MMASK) == SDL_BUTTON_MMASK)
+    if(pButtonClicked == SDL_BUTTON_MIDDLE)
     {
       return MouseClickEvent::MouseButton::M_BUTTON;
     }
 
-    if((pButtonState & SDL_BUTTON_LMASK) == SDL_BUTTON_LMASK)
+    if(pButtonClicked == SDL_BUTTON_LEFT)
     {
       return MouseClickEvent::MouseButton::L_BUTTON;
     }
 
     return MouseClickEvent::MouseButton::NONE;
+  }
+
+
+  std::set<MouseClickEvent::MouseButton> WindowsWindow::setMouseButtonsDown(uint32_t pButtonsDown) const
+  {
+    std::set<MouseClickEvent::MouseButton> vMouseButtonsDown;
+
+    if((pButtonsDown & SDL_BUTTON_RMASK) == SDL_BUTTON_RMASK)
+    {
+      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::R_BUTTON);
+    }
+
+    if((pButtonsDown & SDL_BUTTON_MMASK) == SDL_BUTTON_MMASK)
+    {
+      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::M_BUTTON);
+    }
+
+    if((pButtonsDown & SDL_BUTTON_LMASK) == SDL_BUTTON_LMASK)
+    {
+      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::L_BUTTON);
+    }
+
+    return vMouseButtonsDown;
   }
 
 
