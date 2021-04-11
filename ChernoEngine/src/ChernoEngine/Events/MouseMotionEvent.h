@@ -18,6 +18,7 @@ namespace ChernoEngine
 
     std::set<MouseClickEvent::MouseButton> getMouseButtonsDown() const;
     bool hasMouseButtonsDown() const;
+    bool isMouseButtonDown(MouseClickEvent::MouseButton pMouseButton) const;
 
     std::string toString() const override;
 

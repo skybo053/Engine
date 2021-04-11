@@ -42,6 +42,12 @@ namespace ChernoEngine
   }
 
 
+  bool MouseMotionEvent::isMouseButtonDown(MouseClickEvent::MouseButton pMouseButton) const
+  {
+    return mouseButtonsDown.find(pMouseButton) != mouseButtonsDown.end();
+  }
+
+
   std::string MouseMotionEvent::mouseButtonToString(MouseClickEvent::MouseButton pMouseButton) const
   {
     switch(pMouseButton)
