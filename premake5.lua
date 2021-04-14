@@ -41,8 +41,7 @@ project "ChernoEngine"
 	links
 	{
 		"SDL2main",
-		"SDL2", 
-		"opengl32.lib"
+		"SDL2"
 	}
 	
 	filter "files:**.c"
