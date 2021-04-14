@@ -22,7 +22,9 @@ project "ChernoEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/src/**.cpp",
+		"%{prj.name}/vendor/src/**.c"
 	}
 	
 	includedirs
@@ -42,6 +44,12 @@ project "ChernoEngine"
 		"SDL2", 
 		"opengl32.lib"
 	}
+	
+	filter "files:**.c"
+		flags 
+		{
+			"NoPCH"
+		}
 	
 	filter "system:windows"
 		cppdialect "C++17"

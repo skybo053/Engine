@@ -8,6 +8,8 @@
 #include "ChernoEngine/Events/KeyEvent.h"
 #include "ChernoEngine/Events/MouseWheelEvent.h"
 
+#include "glad/glad.h"
+
 
 namespace ChernoEngine
 {
@@ -47,6 +49,16 @@ namespace ChernoEngine
 
     //set up openGL stuff
     glContext = SDL_GL_CreateContext(window);
+
+    if(gladLoadGLLoader(SDL_GL_GetProcAddress) == NULL)
+    {
+      CORELOGGER_ERROR("Failed to initialize Glad system!");
+    }
+    else
+    {
+      CORELOGGER_INFO("Glad system initialized!");
+    }
+
     setVSync(1);
   }
 

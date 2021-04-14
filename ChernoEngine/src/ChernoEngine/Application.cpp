@@ -1,9 +1,8 @@
 #include "Pch.h"
 #include "Application.h"
 #include "Log.h"
+#include "glad/glad.h"
 
-#include <sdl/SDL.h>
-#include <sdl/SDL_opengl.h>
 
 namespace ChernoEngine
 {
