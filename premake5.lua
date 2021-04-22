@@ -30,7 +30,8 @@ project "ChernoEngine"
 	includedirs
 	{
 	    "%{prj.name}/src",
-		"%{prj.name}/vendor/includes"
+		"%{prj.name}/vendor/includes",
+		"%{prj.name}/vendor/includes/imgui"
 	}
 	
 	libdirs
@@ -44,7 +45,7 @@ project "ChernoEngine"
 		"SDL2"
 	}
 	
-	filter "files:**.c"
+	filter "files:ChernoEngine/vendor/src/**.cpp or ChernoEngine/vendor/src/**.c"
 		flags 
 		{
 			"NoPCH"

@@ -11,7 +11,7 @@ namespace ChernoEngine
   struct CHERNOENGINE_API WindowProps
   {
     WindowProps() : 
-        name("DEFAULT"), width(600), height(600), xPos(40), yPos(40) {}
+        name("DEFAULT"), width(1250), height(750), xPos(20), yPos(20) {}
 
     std::string name;
     int width;
@@ -30,6 +30,8 @@ namespace ChernoEngine
     virtual void shutdown() = 0;
     virtual void setVSync(int interval) const = 0;
     virtual int getVSync() const = 0;
+
+    virtual void* getNativeWindow() const = 0;
 
     virtual int getWidth() const { return width; }
     virtual int getHeight() const { return height; }

@@ -21,6 +21,9 @@ namespace ChernoEngine
     void pushLayer(Layer* pLayer);
     void pushOverlay(Layer* pOverlay);
 
+    int getWindowWidth() const;
+    int getWindowHeight() const;
+
   private:
     //functions
     bool onWindowClosedEvent(WindowClosedEvent& pWindowClosedEvent);

@@ -24,6 +24,7 @@ namespace ChernoEngine
     void setEventCallback(std::function<void(Event&)> pEvent) override;
     void setVSync(int pInterval) const override;
     int getVSync() const override;
+    void* getNativeWindow() const override;
 
   private:
     //functions

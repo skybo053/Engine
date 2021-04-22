@@ -13,18 +13,19 @@ namespace ChernoEngine
   void LayerStack::pushLayer(Layer* pLayer)
   {
     layers.emplace(layers.begin(), pLayer);
+    pLayer->onAttach();
   }
 
 
   void LayerStack::pushOverlay(Layer* pOverLay)
   {
     layers.emplace_back(pOverLay);
+    pOverLay->onAttach();
   }
 
 
   void LayerStack::popLayer(Layer* pLayer)
   {
-  
     removeLayer(pLayer);
   }
 

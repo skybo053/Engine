@@ -1,6 +1,6 @@
 #include "Pch.h"
 
-#include "WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 #include "ChernoEngine/Log.h"
 #include "ChernoEngine/Events/WindowResizedEvent.h"
@@ -239,6 +239,12 @@ namespace ChernoEngine
   int WindowsWindow::getVSync() const
   {
     return SDL_GL_GetSwapInterval();
+  }
+
+
+  void* WindowsWindow::getNativeWindow() const
+  {
+    return window;
   }
 
 

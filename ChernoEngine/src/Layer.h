@@ -1,8 +1,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "Pch.h"
 #include "ChernoEngine/Events/Event.h"
+
 
 namespace ChernoEngine
 {

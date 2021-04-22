@@ -26,12 +26,13 @@ namespace ChernoEngine
   {
     while(running)
     {
+      
       glClearColor(1,0,1,1);
       glClear(GL_COLOR_BUFFER_BIT);
       
-      window->onUpdate();
-
       layerStack.updateLayers();
+
+      window->onUpdate();
     }
   }
 
@@ -64,6 +65,17 @@ namespace ChernoEngine
     layerStack.pushOverlay(pOverlay);
   }
 
+
+  int Application::getWindowWidth() const
+  {
+    return window->getWidth();
+  }
+
+
+  int Application::getWindowHeight() const
+  {
+    return window->getHeight();
+  }
 }
 
 
