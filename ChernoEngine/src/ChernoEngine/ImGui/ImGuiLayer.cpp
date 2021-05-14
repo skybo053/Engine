@@ -4,6 +4,7 @@
 #include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 
 #include <sdl/SDL.h>
+#include "glad/glad.h"
 
 
 namespace ChernoEngine
@@ -64,9 +65,11 @@ namespace ChernoEngine
   {
     ImGuiIO& io = ImGui::GetIO();
 
-    float currentTimeMillis = SDL_GetTicks();
-    io.DeltaTime = time > 0.0F ? (currentTimeMillis - time) / 1000.0 : (1.0f / 60.0f);
-    time = currentTimeMillis;
+    uint64_t frequency   = SDL_GetPerformanceFrequency();
+    uint64_t currentTime = SDL_GetPerformanceCounter();
+
+    io.DeltaTime = time > 0 ? (float)((double)(currentTime - time) / frequency) : (float)(1.0f / 60.0f);
+    time = currentTime;
 
     ImGui_ImplOpenGL3_NewFrame();
     ImGui::NewFrame();
@@ -79,12 +82,6 @@ namespace ChernoEngine
   }
 
 
-  void ImGuiLayer::onEvent(Event& pEvent)
-  {
-
-  }
-
-
   int ImGuiLayer::getDisplayWidth() const
   {
     return displayWidth;
@@ -94,6 +91,200 @@ namespace ChernoEngine
   int ImGuiLayer::getDisplayHeight() const
   {
     return displayHeight;
+  }
+
+
+  void ImGuiLayer::onEvent(Event& pEvent)
+  {
+    switch(pEvent.getEventType())
+    {
+      case EventType::MOUSEMOTIONEVENT:
+      {
+        onMouseMotionEvent(static_cast<MouseMotionEvent&>(pEvent));
+        break;
+      }
+      case EventType::MOUSECLICKEVENT:
+      {
+        onMouseClickEvent(static_cast<MouseClickEvent&>(pEvent));
+        break;
+      }
+      case EventType::KEYEVENT:
+      {
+        onKeyEvent(static_cast<KeyEvent&>(pEvent));
+        break;
+      }
+      case EventType::TEXTINPUTEVENT:
+      {
+        onTextInputEvent(static_cast<TextInputEvent&>(pEvent));
+        break;
+      }
+      case EventType::MOUSEWHEELEVENT:
+      {
+        onMouseWheelEvent(static_cast<MouseWheelEvent&>(pEvent));
+        break;
+      }
+      case EventType::WINDOWCLOSEDEVENT:
+      {
+        onWindowClosedEvent(static_cast<WindowClosedEvent&>(pEvent));
+        break;
+      }
+      case EventType::WINDOWRESIZEDEVENT:
+      {
+        onWindowResizedEvent(static_cast<WindowResizedEvent&>(pEvent));
+        break;
+      }
+      default:
+      {
+        CORELOGGER_ERROR("ImGuiLayer::onEvent - Unrecognized event: {0}", pEvent);
+      }
+    }
+  }
+
+
+  bool ImGuiLayer::onKeyEvent(KeyEvent& pKeyEvent)
+  {
+    ImGuiIO&            vIO        = ImGui::GetIO();
+    KeyEvent::KeyAction vKeyAction = pKeyEvent.getKeyAction();
+
+    if(vKeyAction == KeyEvent::KeyAction::PRESSED)
+    {
+      vIO.KeysDown[pKeyEvent.getKeyCode()] = true;
+
+      vIO.KeyCtrl  = vIO.KeysDown[SDL_SCANCODE_LCTRL]  || vIO.KeysDown[SDL_SCANCODE_RCTRL];
+      vIO.KeyShift = vIO.KeysDown[SDL_SCANCODE_LSHIFT] || vIO.KeysDown[SDL_SCANCODE_RSHIFT];
+      vIO.KeyAlt   = vIO.KeysDown[SDL_SCANCODE_LALT]   || vIO.KeysDown[SDL_SCANCODE_RALT];
+      vIO.KeySuper = vIO.KeysDown[SDL_SCANCODE_LGUI]   || vIO.KeysDown[SDL_SCANCODE_RGUI];
+    }
+    else if(vKeyAction == KeyEvent::KeyAction::RELEASED)
+    {
+      vIO.KeysDown[pKeyEvent.getKeyCode()] = false;
+
+      vIO.KeyCtrl  = vIO.KeysDown[SDL_SCANCODE_LCTRL]  || vIO.KeysDown[SDL_SCANCODE_RCTRL];
+      vIO.KeyShift = vIO.KeysDown[SDL_SCANCODE_LSHIFT] || vIO.KeysDown[SDL_SCANCODE_RSHIFT];
+      vIO.KeyAlt   = vIO.KeysDown[SDL_SCANCODE_LALT]   || vIO.KeysDown[SDL_SCANCODE_RALT];
+      vIO.KeySuper = vIO.KeysDown[SDL_SCANCODE_LGUI]   || vIO.KeysDown[SDL_SCANCODE_RGUI];
+    }
+    else
+    {
+      CORELOGGER_ERROR("ImGuiLayer::onKeyEvent - Unrecognized KeyAction for KeyEvent: {0}", pKeyEvent);
+    }
+
+    return false;
+  }
+
+
+  bool ImGuiLayer::onMouseClickEvent(MouseClickEvent& pMouseClickEvent)
+  {
+    ImGuiIO&                     vIo = ImGui::GetIO();
+    MouseClickEvent::MouseAction vMouseAction = pMouseClickEvent.getMouseAction();
+    MouseClickEvent::MouseButton vMouseButton = pMouseClickEvent.getMouseButton();
+
+    if(vMouseAction == MouseClickEvent::MouseAction::PRESSED)
+    {
+      switch(vMouseButton)
+      {
+      case MouseClickEvent::MouseButton::L_BUTTON:
+      {
+        vIo.MouseDown[0] = true;
+        break;
+      }
+      case MouseClickEvent::MouseButton::M_BUTTON:
+      {
+        vIo.MouseDown[2] = true;
+        break;
+      }
+      case MouseClickEvent::MouseButton::R_BUTTON:
+      {
+        vIo.MouseDown[1] = true;
+        break;
+      }
+      default:
+      {
+        CORELOGGER_WARN("ImGuiLayer::onMouseClickEvent - Unable to process MouseAction::PRESSED event: {0}", pMouseClickEvent);
+      }
+      }
+    }
+    else if(vMouseAction == MouseClickEvent::MouseAction::RELEASED)
+    {
+      switch(vMouseButton)
+      {
+        case MouseClickEvent::MouseButton::L_BUTTON:
+        {
+          vIo.MouseDown[0] = false;
+          break;
+        }
+        case MouseClickEvent::MouseButton::M_BUTTON:
+        {
+          vIo.MouseDown[2] = false;
+          break;
+        }
+        case MouseClickEvent::MouseButton::R_BUTTON:
+        {
+          vIo.MouseDown[1] = false;
+          break;
+        }
+        default:
+        {
+          CORELOGGER_WARN("ImGuiLayer::onMouseClickEvent - Unable to process MouseAction::RELEASED event: {0}", pMouseClickEvent);
+        }
+      }
+    }
+    else
+    {
+      CLIENTLOGGER_ERROR("ImGuiLayer::onMouseClickEvent - Unknown MouseClickEvent received: {0}", pMouseClickEvent);
+    }
+
+    return false;
+  }
+
+  bool ImGuiLayer::onMouseMotionEvent(MouseMotionEvent& pMouseMotionEvent)
+  {
+    ImGuiIO& vIO = ImGui::GetIO();
+    
+    vIO.MousePos = ImVec2(pMouseMotionEvent.getXPosition(), pMouseMotionEvent.getYPosition());
+
+    return false;
+  }
+
+
+  bool ImGuiLayer::onMouseWheelEvent(MouseWheelEvent& pMouseWheelEvent)
+  {
+    ImGuiIO& vIO = ImGui::GetIO();
+
+    vIO.MouseWheelH = pMouseWheelEvent.getHorizontalScroll();
+    vIO.MouseWheel  = pMouseWheelEvent.getVerticalScroll();
+
+    return false;
+  }
+
+
+  bool ImGuiLayer::onWindowClosedEvent(WindowClosedEvent& pWindowClosedEvent)
+  {
+    return false;
+  }
+
+
+  bool ImGuiLayer::onWindowResizedEvent(WindowResizedEvent& pWindowResizedEvent)
+  {
+    ImGuiIO& vIO = ImGui::GetIO();
+
+    vIO.DisplaySize = ImVec2(pWindowResizedEvent.getWidth(), pWindowResizedEvent.getHeight());
+    vIO.DisplayFramebufferScale = ImVec2(1.0F, 1.0F);
+    
+    glViewport(0, 0, pWindowResizedEvent.getWidth(), pWindowResizedEvent.getHeight());
+
+    return false;
+  }
+
+
+  bool ImGuiLayer::onTextInputEvent(TextInputEvent& pTextInputEvent)
+  {
+    ImGuiIO&    vIO        = ImGui::GetIO();
+    const char* vInputText = pTextInputEvent.getText();
+
+    vIO.AddInputCharactersUTF8(vInputText);
+
+    return false;
   }
 
 

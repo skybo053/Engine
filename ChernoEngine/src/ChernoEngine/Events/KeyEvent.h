@@ -21,6 +21,7 @@ namespace ChernoEngine
     int       getKeyCode() const;
     KeyAction getKeyAction() const;
     bool      isRepeated() const;
+
     std::string toString() const override;
 
     static EventType getStaticEventType();

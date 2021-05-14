@@ -34,11 +34,11 @@ namespace ChernoEngine
   {
     switch(pEventType)
     {
-      case EventType::WINDOWRESIZED:
+      case EventType::WINDOWRESIZEDEVENT:
       {
         return "WindowResizedEvent";
       }
-      case EventType::WINDOWCLOSED:
+      case EventType::WINDOWCLOSEDEVENT:
       {
         return "WindowClosedEvent";
       }
@@ -61,6 +61,10 @@ namespace ChernoEngine
       case EventType::MOUSEMOTIONEVENT:
       {
         return "MouseMotionEvent";
+      }
+      case EventType::TEXTINPUTEVENT:
+      {
+        return "TextInputEvent";
       }
       default:
       {

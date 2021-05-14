@@ -17,6 +17,8 @@ namespace ChernoEngine
 
     std::string toString() const override;
 
+    static EventType getStaticEventType();
+
   private:
     int width;
     int height;

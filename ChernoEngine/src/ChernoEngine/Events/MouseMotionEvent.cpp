@@ -97,4 +97,9 @@ namespace ChernoEngine
     return vStringStream.str();
   }
 
+  EventType MouseMotionEvent::getStaticEventType()
+  {
+    return EventType::MOUSEMOTIONEVENT;
+  }
+
 }// end namespace

@@ -4,7 +4,7 @@
 namespace ChernoEngine
 {
 
-  WindowClosedEvent::WindowClosedEvent() : Event(EventType::WINDOWCLOSED)
+  WindowClosedEvent::WindowClosedEvent() : Event(EventType::WINDOWCLOSEDEVENT)
   {
 
   }
@@ -18,7 +18,7 @@ namespace ChernoEngine
   
   EventType WindowClosedEvent::getStaticEventType()
   {
-    return EventType::WINDOWCLOSED;
+    return EventType::WINDOWCLOSEDEVENT;
   }
 
 

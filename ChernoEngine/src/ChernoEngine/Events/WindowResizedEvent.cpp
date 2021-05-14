@@ -5,7 +5,7 @@
 namespace ChernoEngine
 {
 
-  WindowResizedEvent::WindowResizedEvent(int width, int height) : width(width), height(height), Event(EventType::WINDOWRESIZED)
+  WindowResizedEvent::WindowResizedEvent(int width, int height) : width(width), height(height), Event(EventType::WINDOWRESIZEDEVENT)
   {
 
   }
@@ -36,6 +36,12 @@ namespace ChernoEngine
     vStringStream << "Width=" << width << ", Height=" << height;
 
     return vStringStream.str();
+  }
+
+
+  EventType WindowResizedEvent::getStaticEventType()
+  {
+    return EventType::WINDOWRESIZEDEVENT;
   }
 
 }

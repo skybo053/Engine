@@ -7,6 +7,7 @@
 #include "ChernoEngine/Events/WindowClosedEvent.h"
 #include "ChernoEngine/Events/KeyEvent.h"
 #include "ChernoEngine/Events/MouseWheelEvent.h"
+#include "ChernoEngine/Events/TextInputEvent.h"
 
 #include "glad/glad.h"
 
@@ -81,7 +82,7 @@ namespace ChernoEngine
         {
           eventCallback(
             KeyEvent(
-              vSDLEvent.key.keysym.sym, 
+              vSDLEvent.key.keysym.scancode, 
               KeyEvent::KeyAction::PRESSED, 
               (vSDLEvent.key.repeat == 0 ? false : true)));
 
@@ -91,7 +92,7 @@ namespace ChernoEngine
         {
           eventCallback(
             KeyEvent(
-              vSDLEvent.key.keysym.sym,
+              vSDLEvent.key.keysym.scancode,
               KeyEvent::KeyAction::RELEASED,
               false));
 
@@ -136,6 +137,12 @@ namespace ChernoEngine
               vButtonsDown == 0 ? std::set<MouseClickEvent::MouseButton>() : setMouseButtonsDown(vButtonsDown)));
 
           break;
+        }
+        case SDL_TEXTINPUT:
+        {
+          SDL_TextInputEvent vTextInputEvent = vSDLEvent.text;
+
+          eventCallback(TextInputEvent(vTextInputEvent.text));
         }
       }
     }//end while PollEvents

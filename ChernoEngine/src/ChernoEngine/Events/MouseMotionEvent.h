@@ -22,6 +22,8 @@ namespace ChernoEngine
 
     std::string toString() const override;
 
+    static EventType getStaticEventType();
+
   private:
     //functions
     std::string mouseButtonToString(MouseClickEvent::MouseButton pMouseButton) const;

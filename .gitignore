@@ -11,6 +11,7 @@ ChernoEngine/ChernoEngine.vcxproj.user
 
 SandBox/SandBox.vcxproj
 SandBox/SandBox.vcxproj.user
+SandBox/imgui.ini
 
 #binary output dirs
 bin/*
