@@ -7,7 +7,7 @@
 namespace ChernoEngine
 {
 
-  class LayerStack
+  class CHERNOENGINE_API LayerStack
   {
   public:
     LayerStack();

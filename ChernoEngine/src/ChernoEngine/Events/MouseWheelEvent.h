@@ -6,7 +6,7 @@
 namespace ChernoEngine
 {
 
-  class MouseWheelEvent : public Event
+  class CHERNOENGINE_API MouseWheelEvent : public Event
   {
   public:
 

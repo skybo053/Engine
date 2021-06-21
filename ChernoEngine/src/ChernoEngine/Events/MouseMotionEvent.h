@@ -7,7 +7,7 @@
 
 namespace ChernoEngine
 {
-  class MouseMotionEvent : public Event
+  class CHERNOENGINE_API MouseMotionEvent : public Event
   {
   public:
     MouseMotionEvent(int pXPos, int pYPos, std::set<MouseClickEvent::MouseButton> pMouseButtonsDown);

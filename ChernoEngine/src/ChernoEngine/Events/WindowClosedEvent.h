@@ -5,7 +5,7 @@
 
 namespace ChernoEngine
 {
-  class WindowClosedEvent : public Event
+  class CHERNOENGINE_API WindowClosedEvent : public Event
   {
   public:
     WindowClosedEvent();

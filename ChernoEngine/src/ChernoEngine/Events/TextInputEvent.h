@@ -6,7 +6,7 @@
 namespace ChernoEngine
 {
 
-  class TextInputEvent : public Event
+  class CHERNOENGINE_API TextInputEvent : public Event
   {
   public:
     TextInputEvent(char* pText);

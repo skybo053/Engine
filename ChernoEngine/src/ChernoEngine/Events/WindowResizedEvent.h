@@ -6,7 +6,7 @@
 namespace ChernoEngine
 {
 
-  class WindowResizedEvent : public Event
+  class CHERNOENGINE_API WindowResizedEvent : public Event
   {
   public:
     WindowResizedEvent(int width, int height);
