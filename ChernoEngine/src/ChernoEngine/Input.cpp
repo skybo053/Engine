@@ -13,4 +13,14 @@ namespace ChernoEngine
   Input* Input::input = new WindowsInput();
 #endif
 
+  bool Input::isKeyPressed(int pKeycode) 
+  { 
+    return input->isKeyPressedImpl(pKeycode); 
+  }
+
+  bool Input::isMouseButtonPressed(int pMouseButton)
+  {
+    return input->isMouseButtonPressedImpl(pMouseButton);
+  }
+
 }

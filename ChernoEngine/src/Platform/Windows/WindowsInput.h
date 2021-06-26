@@ -11,6 +11,7 @@ namespace ChernoEngine
   {
   public:
     virtual bool isKeyPressedImpl(int pScancode) const override;
+    virtual bool isMouseButtonPressedImpl(int pMouseButton) const override;
   private:
   };
 }

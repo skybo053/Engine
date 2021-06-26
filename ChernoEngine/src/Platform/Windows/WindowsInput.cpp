@@ -13,4 +13,12 @@ namespace ChernoEngine
 
     return vKeyStates[pScancode];
   }
+
+
+  bool WindowsInput::isMouseButtonPressedImpl(int pMouseButton) const
+  {
+    uint32_t vMouseStates = SDL_GetMouseState(NULL, NULL);
+
+    return vMouseStates & SDL_BUTTON(pMouseButton);
+  }
 }
