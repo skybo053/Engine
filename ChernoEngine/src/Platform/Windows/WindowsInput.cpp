@@ -21,4 +21,16 @@ namespace ChernoEngine
 
     return vMouseStates & SDL_BUTTON(pMouseButton);
   }
+
+
+  std::pair<int, int> WindowsInput::getMousePositionImpl() const
+  {
+    int vXPos = 0;
+    int vYPos = 0;
+
+    SDL_GetMouseState(&vXPos, &vYPos);
+
+    return std::make_pair(vXPos, vYPos);
+  }
+
 }

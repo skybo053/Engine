@@ -12,6 +12,8 @@ namespace ChernoEngine
   public:
     virtual bool isKeyPressedImpl(int pScancode) const override;
     virtual bool isMouseButtonPressedImpl(int pMouseButton) const override;
+    virtual std::pair<int, int> getMousePositionImpl() const override;
+
   private:
   };
 }

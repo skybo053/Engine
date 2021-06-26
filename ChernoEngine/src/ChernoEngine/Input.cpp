@@ -23,4 +23,9 @@ namespace ChernoEngine
     return input->isMouseButtonPressedImpl(pMouseButton);
   }
 
+  std::pair<int, int> Input::getMousePosition()
+  {
+    return input->getMousePositionImpl();
+  }
+
 }
