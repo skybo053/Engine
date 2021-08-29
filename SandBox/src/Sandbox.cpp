@@ -25,11 +25,13 @@ public:
       ChernoEngine::KeyEvent& vKeyEvent = static_cast<ChernoEngine::KeyEvent&>(pEvent);
 
       if(vKeyEvent.getKeyCode()   == ChernoEngine::CE_KEYCODE_TAB &&
-         vKeyEvent.getKeyAction() == ChernoEngine::KeyEvent::KeyAction::PRESSED)
+         vKeyEvent.getKeyAction() == ChernoEngine::CE_KEY_PRESSED)
       {
         CLIENTLOGGER_INFO("TAB was pressed with keycode: {}", vKeyEvent.getKeyCode());
       }
     }
+
+    pEvent.setWasHandled(true);
   }
 
 private:

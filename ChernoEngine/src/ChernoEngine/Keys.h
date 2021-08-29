@@ -1,8 +1,14 @@
-#ifndef KEYCODES_H
-#define KEYCODES_H
+#ifndef KEYS_H
+#define KEYS_H
 
 namespace ChernoEngine
 {
+  enum CE_KeyAction
+  {
+    CE_KEY_PRESSED,
+    CE_KEY_RELEASED
+  };
+
   //Taken from SDL_KEYcode.h
   enum CE_KeyCode
   {

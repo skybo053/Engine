@@ -4,7 +4,7 @@
 namespace ChernoEngine
 {
   
-  KeyEvent::KeyEvent(int pKeyCode, KeyAction pKeyAction, bool pIsRepeat) 
+  KeyEvent::KeyEvent(int pKeyCode, CE_KeyAction pKeyAction, bool pIsRepeat) 
       : keyCode(pKeyCode), keyAction(pKeyAction), isRepeat(pIsRepeat), Event(EventType::KEYEVENT)
   {
 
@@ -17,7 +17,7 @@ namespace ChernoEngine
   }
 
 
-  KeyEvent::KeyAction KeyEvent::getKeyAction() const
+  CE_KeyAction KeyEvent::getKeyAction() const
   {
     return keyAction;
   }
@@ -35,18 +35,18 @@ namespace ChernoEngine
   }
 
 
-  std::string KeyEvent::keyActionToString(KeyAction pKeyAction) const
+  std::string KeyEvent::keyActionToString(CE_KeyAction pKeyAction) const
   {
     std::string vKeyAction;
 
     switch(pKeyAction)
     {
-      case KeyAction::PRESSED:
+      case CE_KEY_PRESSED:
       {
         vKeyAction = "KEY_PRESSED";
         break;
       }
-      case KeyAction::RELEASED:
+      case CE_KEY_RELEASED:
       {
         vKeyAction = "KEY_RELEASED";
         break;

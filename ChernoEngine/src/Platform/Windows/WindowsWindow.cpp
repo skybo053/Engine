@@ -8,6 +8,7 @@
 #include "ChernoEngine/Events/KeyEvent.h"
 #include "ChernoEngine/Events/MouseWheelEvent.h"
 #include "ChernoEngine/Events/TextInputEvent.h"
+#include "ChernoEngine/Keys.h"
 
 #include "glad/glad.h"
 
@@ -83,7 +84,7 @@ namespace ChernoEngine
           eventCallback(
             KeyEvent(
               vSDLEvent.key.keysym.scancode, 
-              KeyEvent::KeyAction::PRESSED, 
+              CE_KEY_PRESSED, 
               (vSDLEvent.key.repeat == 0 ? false : true)));
 
           break;
@@ -93,7 +94,7 @@ namespace ChernoEngine
           eventCallback(
             KeyEvent(
               vSDLEvent.key.keysym.scancode,
-              KeyEvent::KeyAction::RELEASED,
+              CE_KEY_RELEASED,
               false));
 
           break;
@@ -109,7 +110,7 @@ namespace ChernoEngine
               vMouseButtonEvent.x,
               vMouseButtonEvent.y,
               getMouseButtonClicked(vMouseButtonEvent.button),
-              vButtonState == SDL_PRESSED ? MouseClickEvent::MouseAction::PRESSED : MouseClickEvent::MouseAction::RELEASED));
+              vButtonState == SDL_PRESSED ? CE_BUTTON_PRESSED : CE_BUTTON_RELEASED));
 
           break;
         }
@@ -134,7 +135,7 @@ namespace ChernoEngine
             MouseMotionEvent(
               vMouseMotionEvent.x,
               vMouseMotionEvent.y,
-              vButtonsDown == 0 ? std::set<MouseClickEvent::MouseButton>() : setMouseButtonsDown(vButtonsDown)));
+              vButtonsDown == 0 ? std::set<CE_MouseButtonCode>() : setMouseButtonsDown(vButtonsDown)));
 
           break;
         }
@@ -169,44 +170,44 @@ namespace ChernoEngine
   }
 
 
-  MouseClickEvent::MouseButton WindowsWindow::getMouseButtonClicked(const uint8_t pButtonClicked) const
+  CE_MouseButtonCode WindowsWindow::getMouseButtonClicked(const uint8_t pButtonClicked) const
   {
-    if(pButtonClicked == SDL_BUTTON_RIGHT)
+    if(pButtonClicked == CE_BUTTON_RIGHT)
     {
-      return MouseClickEvent::MouseButton::R_BUTTON;
+      return CE_BUTTON_RIGHT;
     }
 
-    if(pButtonClicked == SDL_BUTTON_MIDDLE)
+    if(pButtonClicked == CE_BUTTON_MIDDLE)
     {
-      return MouseClickEvent::MouseButton::M_BUTTON;
+      return CE_BUTTON_MIDDLE;
     }
 
-    if(pButtonClicked == SDL_BUTTON_LEFT)
+    if(pButtonClicked == CE_BUTTON_LEFT)
     {
-      return MouseClickEvent::MouseButton::L_BUTTON;
+      return CE_BUTTON_LEFT;
     }
 
-    return MouseClickEvent::MouseButton::NONE;
+    return CE_BUTTON_UNKNOWN;
   }
 
 
-  std::set<MouseClickEvent::MouseButton> WindowsWindow::setMouseButtonsDown(uint32_t pButtonsDown) const
+  std::set<CE_MouseButtonCode> WindowsWindow::setMouseButtonsDown(uint32_t pButtonsDown) const
   {
-    std::set<MouseClickEvent::MouseButton> vMouseButtonsDown;
+    std::set<CE_MouseButtonCode> vMouseButtonsDown;
 
     if((pButtonsDown & SDL_BUTTON_RMASK) == SDL_BUTTON_RMASK)
     {
-      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::R_BUTTON);
+      vMouseButtonsDown.insert(CE_BUTTON_RIGHT);
     }
 
     if((pButtonsDown & SDL_BUTTON_MMASK) == SDL_BUTTON_MMASK)
     {
-      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::M_BUTTON);
+      vMouseButtonsDown.insert(CE_BUTTON_MIDDLE);
     }
 
     if((pButtonsDown & SDL_BUTTON_LMASK) == SDL_BUTTON_LMASK)
     {
-      vMouseButtonsDown.insert(MouseClickEvent::MouseButton::L_BUTTON);
+      vMouseButtonsDown.insert(CE_BUTTON_LEFT);
     }
 
     return vMouseButtonsDown;

@@ -5,7 +5,7 @@
 namespace ChernoEngine
 {
 
-  MouseMotionEvent::MouseMotionEvent(int pXPos, int pYPos, std::set<MouseClickEvent::MouseButton> pMouseButtonsDown) 
+  MouseMotionEvent::MouseMotionEvent(int pXPos, int pYPos, std::set<CE_MouseButtonCode> pMouseButtonsDown) 
       : xPos(pXPos), yPos(pYPos), mouseButtonsDown(pMouseButtonsDown), Event(EventType::MOUSEMOTIONEVENT)
   {
 
@@ -30,7 +30,7 @@ namespace ChernoEngine
   }
 
 
-  std::set<MouseClickEvent::MouseButton> MouseMotionEvent::getMouseButtonsDown() const
+  std::set<CE_MouseButtonCode> MouseMotionEvent::getMouseButtonsDown() const
   {
     return mouseButtonsDown;
   }
@@ -42,31 +42,31 @@ namespace ChernoEngine
   }
 
 
-  bool MouseMotionEvent::isMouseButtonDown(MouseClickEvent::MouseButton pMouseButton) const
+  bool MouseMotionEvent::isMouseButtonDown(CE_MouseButtonCode pMouseButton) const
   {
     return mouseButtonsDown.find(pMouseButton) != mouseButtonsDown.end();
   }
 
 
-  std::string MouseMotionEvent::mouseButtonToString(MouseClickEvent::MouseButton pMouseButton) const
+  std::string MouseMotionEvent::mouseButtonToString(CE_MouseButtonCode pMouseButton) const
   {
     switch(pMouseButton)
     {
-      case MouseClickEvent::MouseButton::L_BUTTON:
+      case CE_BUTTON_LEFT:
       {
         return "L_Button";
       }
-      case MouseClickEvent::MouseButton::M_BUTTON:
+      case CE_BUTTON_MIDDLE:
       {
         return "M_Button";
       }
-      case MouseClickEvent::MouseButton::R_BUTTON:
+      case CE_BUTTON_RIGHT:
       {
         return "R_Button";
       }
-      case MouseClickEvent::MouseButton::NONE:
+      case CE_BUTTON_UNKNOWN:
       {
-        return "None";
+        return "Unknown";
       }
       default:
       {
@@ -84,14 +84,14 @@ namespace ChernoEngine
 
     if(hasMouseButtonsDown())
     {
-      for(MouseClickEvent::MouseButton vMouseButton : mouseButtonsDown)
+      for(CE_MouseButtonCode vMouseButton : mouseButtonsDown)
       {
         vStringStream << mouseButtonToString(vMouseButton) << " ";
       }
     }
     else
     {
-      vStringStream << mouseButtonToString(MouseClickEvent::MouseButton::NONE);
+      vStringStream << mouseButtonToString(CE_BUTTON_NONE);
     }
 
     return vStringStream.str();

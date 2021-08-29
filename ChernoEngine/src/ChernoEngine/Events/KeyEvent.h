@@ -2,6 +2,7 @@
 #define KEYEVENT_H
 
 #include "Event.h"
+#include "ChernoEngine/Keys.h"
 
 namespace ChernoEngine
 {
@@ -9,18 +10,11 @@ namespace ChernoEngine
   class CHERNOENGINE_API KeyEvent : public Event
   {
   public:
+    KeyEvent(int pKeyCode, CE_KeyAction pKeyAction, bool pIsRepeat);
 
-    enum class KeyAction
-    {
-      PRESSED,
-      RELEASED
-    };
-
-    KeyEvent(int pKeyCode, KeyAction pKeyAction, bool pIsRepeat);
-
-    int       getKeyCode() const;
-    KeyAction getKeyAction() const;
-    bool      isRepeated() const;
+    int          getKeyCode() const;
+    CE_KeyAction getKeyAction() const;
+    bool         isRepeated() const;
 
     std::string toString() const override;
 
@@ -29,12 +23,12 @@ namespace ChernoEngine
   private:
 
     //functions
-    std::string keyActionToString(KeyAction pKeyAction) const;
+    std::string keyActionToString(CE_KeyAction pKeyAction) const;
 
     // fields
-    int       keyCode;
-    KeyAction keyAction;
-    bool      isRepeat;
+    int          keyCode;
+    CE_KeyAction keyAction;
+    bool         isRepeat;
   };
 
 }

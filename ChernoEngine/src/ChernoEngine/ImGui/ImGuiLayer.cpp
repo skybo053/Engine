@@ -2,6 +2,8 @@
 #include "ImGuiLayer.h"
 
 #include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
+#include "ChernoEngine/MouseButtons.h"
+#include "ChernoEngine/Keys.h"
 
 #include <sdl/SDL.h>
 #include "glad/glad.h"
@@ -143,10 +145,10 @@ namespace ChernoEngine
 
   bool ImGuiLayer::onKeyEvent(KeyEvent& pKeyEvent)
   {
-    ImGuiIO&            vIO        = ImGui::GetIO();
-    KeyEvent::KeyAction vKeyAction = pKeyEvent.getKeyAction();
+    ImGuiIO&     vIO        = ImGui::GetIO();
+    CE_KeyAction vKeyAction = pKeyEvent.getKeyAction();
 
-    if(vKeyAction == KeyEvent::KeyAction::PRESSED)
+    if(vKeyAction == CE_KEY_PRESSED)
     {
       vIO.KeysDown[pKeyEvent.getKeyCode()] = true;
 
@@ -155,7 +157,7 @@ namespace ChernoEngine
       vIO.KeyAlt   = vIO.KeysDown[SDL_SCANCODE_LALT]   || vIO.KeysDown[SDL_SCANCODE_RALT];
       vIO.KeySuper = vIO.KeysDown[SDL_SCANCODE_LGUI]   || vIO.KeysDown[SDL_SCANCODE_RGUI];
     }
-    else if(vKeyAction == KeyEvent::KeyAction::RELEASED)
+    else if(vKeyAction == CE_KEY_RELEASED)
     {
       vIO.KeysDown[pKeyEvent.getKeyCode()] = false;
 
@@ -175,25 +177,25 @@ namespace ChernoEngine
 
   bool ImGuiLayer::onMouseClickEvent(MouseClickEvent& pMouseClickEvent)
   {
-    ImGuiIO&                     vIo = ImGui::GetIO();
-    MouseClickEvent::MouseAction vMouseAction = pMouseClickEvent.getMouseAction();
-    MouseClickEvent::MouseButton vMouseButton = pMouseClickEvent.getMouseButton();
+    ImGuiIO&             vIo          = ImGui::GetIO();
+    CE_MouseButtonAction vMouseAction = pMouseClickEvent.getMouseAction();
+    CE_MouseButtonCode   vMouseButton = pMouseClickEvent.getMouseButton();
 
-    if(vMouseAction == MouseClickEvent::MouseAction::PRESSED)
+    if(vMouseAction == CE_BUTTON_PRESSED)
     {
       switch(vMouseButton)
       {
-      case MouseClickEvent::MouseButton::L_BUTTON:
+      case CE_BUTTON_LEFT:
       {
         vIo.MouseDown[0] = true;
         break;
       }
-      case MouseClickEvent::MouseButton::M_BUTTON:
+      case CE_BUTTON_MIDDLE:
       {
         vIo.MouseDown[2] = true;
         break;
       }
-      case MouseClickEvent::MouseButton::R_BUTTON:
+      case CE_BUTTON_RIGHT:
       {
         vIo.MouseDown[1] = true;
         break;
@@ -204,21 +206,21 @@ namespace ChernoEngine
       }
       }
     }
-    else if(vMouseAction == MouseClickEvent::MouseAction::RELEASED)
+    else if(vMouseAction == CE_BUTTON_RELEASED)
     {
       switch(vMouseButton)
       {
-        case MouseClickEvent::MouseButton::L_BUTTON:
+        case CE_BUTTON_LEFT:
         {
           vIo.MouseDown[0] = false;
           break;
         }
-        case MouseClickEvent::MouseButton::M_BUTTON:
+        case CE_BUTTON_MIDDLE:
         {
           vIo.MouseDown[2] = false;
           break;
         }
-        case MouseClickEvent::MouseButton::R_BUTTON:
+        case CE_BUTTON_RIGHT:
         {
           vIo.MouseDown[1] = false;
           break;

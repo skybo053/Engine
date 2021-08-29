@@ -6,7 +6,7 @@ namespace ChernoEngine
 {
 
   MouseClickEvent::MouseClickEvent(
-    int pXPos, int pYPos, MouseClickEvent::MouseButton pMouseButton, MouseClickEvent::MouseAction pMouseAction) : 
+    int pXPos, int pYPos, CE_MouseButtonCode pMouseButton, CE_MouseButtonAction pMouseAction) : 
     xPos(pXPos), yPos(pYPos), mouseButton(pMouseButton), mouseAction(pMouseAction), Event(EventType::MOUSECLICKEVENT)
   {
 
@@ -25,13 +25,13 @@ namespace ChernoEngine
   }
 
 
-  MouseClickEvent::MouseButton MouseClickEvent::getMouseButton() const
+  CE_MouseButtonCode MouseClickEvent::getMouseButton() const
   {
     return mouseButton;
   }
 
 
-  MouseClickEvent::MouseAction MouseClickEvent::getMouseAction() const
+  CE_MouseButtonAction MouseClickEvent::getMouseAction() const
   {
     return mouseAction;
   }
@@ -43,19 +43,19 @@ namespace ChernoEngine
   }
 
 
-  std::string MouseClickEvent::mouseButtonToString(MouseButton pMouseButton) const
+  std::string MouseClickEvent::mouseButtonToString(CE_MouseButtonCode pMouseButton) const
   {
     switch(pMouseButton)
     {
-      case MouseButton::L_BUTTON:
+      case CE_BUTTON_LEFT:
       {
         return "L_Button";
       }
-      case MouseButton::M_BUTTON:
+      case CE_BUTTON_MIDDLE:
       {
         return "M_Button";
       }
-      case MouseButton::R_BUTTON:
+      case CE_BUTTON_RIGHT:
       {
         return "R_Button";
       }
@@ -67,15 +67,15 @@ namespace ChernoEngine
   }
 
 
-  std::string MouseClickEvent::mouseActionToString(MouseAction pMouseAction) const
+  std::string MouseClickEvent::mouseActionToString(CE_MouseButtonAction pMouseAction) const
   {
     switch(pMouseAction)
     {
-      case MouseAction::PRESSED:
+      case CE_BUTTON_PRESSED:
       {
         return "Pressed";
       }
-      case MouseAction::RELEASED:
+      case CE_BUTTON_RELEASED:
       {
         return "Released";
       }
