@@ -40,7 +40,7 @@ namespace ChernoEngine
   void Application::onEvent(Event& pEvent)
   {
     EventDispatcher::dispatch<WindowClosedEvent>(pEvent, std::bind(&Application::onWindowClosedEvent, this, std::placeholders::_1));
-    CORELOGGER_INFO("{0}", pEvent);
+    //CORELOGGER_INFO("{0}", pEvent);
 
     layerStack.propagateEvent(pEvent);
   }

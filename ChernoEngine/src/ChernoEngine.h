@@ -3,6 +3,10 @@
 
 #include "ChernoEngine/Application.h"
 #include "ChernoEngine/Log.h"
+#include "ChernoEngine/Input.h"
+#include "ChernoEngine/KeyCodes.h"
+#include "ChernoEngine/MouseButtonCodes.h"
+
 #include "Layer.h"
 #include "ChernoEngine/ImGui/ImGuiLayer.h"
 
