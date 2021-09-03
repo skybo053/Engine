@@ -30,28 +30,28 @@ namespace ChernoEngine
     io.BackendFlags = io.BackendFlags | ImGuiBackendFlags_HasSetMousePos;
 
     //Temporary - Will use ChernoEngine keycodes
-    io.KeyMap[ImGuiKey_Tab] = SDL_SCANCODE_TAB;
-    io.KeyMap[ImGuiKey_LeftArrow] = SDL_SCANCODE_LEFT;
-    io.KeyMap[ImGuiKey_RightArrow] = SDL_SCANCODE_RIGHT;
-    io.KeyMap[ImGuiKey_UpArrow] = SDL_SCANCODE_UP;
-    io.KeyMap[ImGuiKey_DownArrow] = SDL_SCANCODE_DOWN;
-    io.KeyMap[ImGuiKey_PageUp] = SDL_SCANCODE_PAGEUP;
-    io.KeyMap[ImGuiKey_PageDown] = SDL_SCANCODE_PAGEDOWN;
-    io.KeyMap[ImGuiKey_Home] = SDL_SCANCODE_HOME;
-    io.KeyMap[ImGuiKey_End] = SDL_SCANCODE_END;
-    io.KeyMap[ImGuiKey_Insert] = SDL_SCANCODE_INSERT;
-    io.KeyMap[ImGuiKey_Delete] = SDL_SCANCODE_DELETE;
-    io.KeyMap[ImGuiKey_Backspace] = SDL_SCANCODE_BACKSPACE;
-    io.KeyMap[ImGuiKey_Space] = SDL_SCANCODE_SPACE;
-    io.KeyMap[ImGuiKey_Enter] = SDL_SCANCODE_RETURN;
-    io.KeyMap[ImGuiKey_Escape] = SDL_SCANCODE_ESCAPE;
-    io.KeyMap[ImGuiKey_KeyPadEnter] = SDL_SCANCODE_KP_ENTER;
-    io.KeyMap[ImGuiKey_A] = SDL_SCANCODE_A;
-    io.KeyMap[ImGuiKey_C] = SDL_SCANCODE_C;
-    io.KeyMap[ImGuiKey_V] = SDL_SCANCODE_V;
-    io.KeyMap[ImGuiKey_X] = SDL_SCANCODE_X;
-    io.KeyMap[ImGuiKey_Y] = SDL_SCANCODE_Y;
-    io.KeyMap[ImGuiKey_Z] = SDL_SCANCODE_Z;
+    io.KeyMap[ImGuiKey_Tab] = CE_KEYCODE_TAB;
+    io.KeyMap[ImGuiKey_LeftArrow] = CE_KEYCODE_LEFT;
+    io.KeyMap[ImGuiKey_RightArrow] = CE_KEYCODE_RIGHT;
+    io.KeyMap[ImGuiKey_UpArrow] = CE_KEYCODE_UP;
+    io.KeyMap[ImGuiKey_DownArrow] = CE_KEYCODE_DOWN;
+    io.KeyMap[ImGuiKey_PageUp] = CE_KEYCODE_PAGEUP;
+    io.KeyMap[ImGuiKey_PageDown] = CE_KEYCODE_PAGEDOWN;
+    io.KeyMap[ImGuiKey_Home] = CE_KEYCODE_HOME;
+    io.KeyMap[ImGuiKey_End] = CE_KEYCODE_END;
+    io.KeyMap[ImGuiKey_Insert] = CE_KEYCODE_INSERT;
+    io.KeyMap[ImGuiKey_Delete] = CE_KEYCODE_DELETE;
+    io.KeyMap[ImGuiKey_Backspace] = CE_KEYCODE_BACKSPACE;
+    io.KeyMap[ImGuiKey_Space] = CE_KEYCODE_SPACE;
+    io.KeyMap[ImGuiKey_Enter] = CE_KEYCODE_RETURN;
+    io.KeyMap[ImGuiKey_Escape] = CE_KEYCODE_ESCAPE;
+    io.KeyMap[ImGuiKey_KeyPadEnter] = CE_KEYCODE_KP_ENTER;
+    io.KeyMap[ImGuiKey_A] = CE_KEYCODE_A;
+    io.KeyMap[ImGuiKey_C] = CE_KEYCODE_C;
+    io.KeyMap[ImGuiKey_V] = CE_KEYCODE_V;
+    io.KeyMap[ImGuiKey_X] = CE_KEYCODE_X;
+    io.KeyMap[ImGuiKey_Y] = CE_KEYCODE_Y;
+    io.KeyMap[ImGuiKey_Z] = CE_KEYCODE_Z;
 
     ImGui_ImplOpenGL3_Init("#version 410");
   }
@@ -152,19 +152,19 @@ namespace ChernoEngine
     {
       vIO.KeysDown[pKeyEvent.getKeyCode()] = true;
 
-      vIO.KeyCtrl  = vIO.KeysDown[SDL_SCANCODE_LCTRL]  || vIO.KeysDown[SDL_SCANCODE_RCTRL];
-      vIO.KeyShift = vIO.KeysDown[SDL_SCANCODE_LSHIFT] || vIO.KeysDown[SDL_SCANCODE_RSHIFT];
-      vIO.KeyAlt   = vIO.KeysDown[SDL_SCANCODE_LALT]   || vIO.KeysDown[SDL_SCANCODE_RALT];
-      vIO.KeySuper = vIO.KeysDown[SDL_SCANCODE_LGUI]   || vIO.KeysDown[SDL_SCANCODE_RGUI];
+      vIO.KeyCtrl  = vIO.KeysDown[CE_KEYCODE_LCTRL]  || vIO.KeysDown[CE_KEYCODE_RCTRL];
+      vIO.KeyShift = vIO.KeysDown[CE_KEYCODE_LSHIFT] || vIO.KeysDown[CE_KEYCODE_RSHIFT];
+      vIO.KeyAlt   = vIO.KeysDown[CE_KEYCODE_LALT]   || vIO.KeysDown[CE_KEYCODE_RALT];
+      vIO.KeySuper = vIO.KeysDown[CE_KEYCODE_LGUI]   || vIO.KeysDown[CE_KEYCODE_RGUI];
     }
     else if(vKeyAction == CE_KEY_RELEASED)
     {
       vIO.KeysDown[pKeyEvent.getKeyCode()] = false;
 
-      vIO.KeyCtrl  = vIO.KeysDown[SDL_SCANCODE_LCTRL]  || vIO.KeysDown[SDL_SCANCODE_RCTRL];
-      vIO.KeyShift = vIO.KeysDown[SDL_SCANCODE_LSHIFT] || vIO.KeysDown[SDL_SCANCODE_RSHIFT];
-      vIO.KeyAlt   = vIO.KeysDown[SDL_SCANCODE_LALT]   || vIO.KeysDown[SDL_SCANCODE_RALT];
-      vIO.KeySuper = vIO.KeysDown[SDL_SCANCODE_LGUI]   || vIO.KeysDown[SDL_SCANCODE_RGUI];
+      vIO.KeyCtrl  = vIO.KeysDown[CE_KEYCODE_LCTRL]  || vIO.KeysDown[CE_KEYCODE_RCTRL];
+      vIO.KeyShift = vIO.KeysDown[CE_KEYCODE_LSHIFT] || vIO.KeysDown[CE_KEYCODE_RSHIFT];
+      vIO.KeyAlt   = vIO.KeysDown[CE_KEYCODE_LALT]   || vIO.KeysDown[CE_KEYCODE_RALT];
+      vIO.KeySuper = vIO.KeysDown[CE_KEYCODE_LGUI]   || vIO.KeysDown[CE_KEYCODE_RGUI];
     }
     else
     {

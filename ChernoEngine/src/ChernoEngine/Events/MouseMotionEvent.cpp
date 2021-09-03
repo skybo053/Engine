@@ -64,9 +64,9 @@ namespace ChernoEngine
       {
         return "R_Button";
       }
-      case CE_BUTTON_UNKNOWN:
+      case CE_BUTTON_NONE:
       {
-        return "Unknown";
+        return "None";
       }
       default:
       {
