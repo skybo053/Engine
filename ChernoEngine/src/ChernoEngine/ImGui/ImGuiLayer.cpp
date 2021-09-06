@@ -28,7 +28,11 @@ namespace ChernoEngine
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
@@ -78,6 +82,17 @@ namespace ChernoEngine
     //Rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    if(vIo.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+      SDL_Window*    vBackupCurrentWindow  = SDL_GL_GetCurrentWindow();
+      SDL_GLContext  vBackupCurrentContext = SDL_GL_GetCurrentContext();
+
+      ImGui::UpdatePlatformWindows();
+      ImGui::RenderPlatformWindowsDefault();
+
+      SDL_GL_MakeCurrent(vBackupCurrentWindow, vBackupCurrentContext);
+    }
   }
 
 
