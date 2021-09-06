@@ -17,6 +17,8 @@ namespace ChernoEngine
     virtual void onUpdate();
     virtual void onEvent(Event& pEvent);
 
+    virtual void onImGuiRender();
+
     const std::string& getName() const;
 
   protected:

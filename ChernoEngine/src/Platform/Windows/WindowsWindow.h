@@ -26,6 +26,7 @@ namespace ChernoEngine
     void setVSync(int pInterval) const override;
     int getVSync() const override;
     void* getNativeWindow() const override;
+    void* getNativeGLContext() const override;
 
   private:
     //functions

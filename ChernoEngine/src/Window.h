@@ -32,6 +32,7 @@ namespace ChernoEngine
     virtual int getVSync() const = 0;
 
     virtual void* getNativeWindow() const = 0;
+    virtual void* getNativeGLContext() const = 0;
 
     virtual int getWidth() const { return width; }
     virtual int getHeight() const { return height; }

@@ -46,11 +46,6 @@ class Sandbox : public ChernoEngine::Application
 public:
   Sandbox()
   {
-    int w = getWindowWidth();
-    int h = getWindowHeight();
-
-    pushOverlay(new ChernoEngine::ImGuiLayer("ImGuiLayer", w, h));
-
     pushLayer(new TestLayer("TestLayer"));
   }
 

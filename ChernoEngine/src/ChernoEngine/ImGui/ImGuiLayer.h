@@ -24,21 +24,16 @@ namespace ChernoEngine
     void onAttach() override;
     void onDetach() override;
 
-    void onUpdate() override;
-    void onEvent(Event& pEvent) override;
+    void onImGuiRender() override;
+
+    void begin();
+    void end();
 
     int getDisplayWidth() const;
     int getDisplayHeight() const;
 
   private:
-    // functions
-    bool onKeyEvent(KeyEvent& pKeyEvent);
-    bool onMouseClickEvent(MouseClickEvent& pMouseClickEvent);
-    bool onMouseMotionEvent(MouseMotionEvent& pMouseMotionEvent);
-    bool onMouseWheelEvent(MouseWheelEvent& pMouseWheelEvent);
-    bool onWindowClosedEvent(WindowClosedEvent& pWindowClosedEvent);
-    bool onWindowResizedEvent(WindowResizedEvent& pWindowResizedEvent);
-    bool onTextInputEvent(TextInputEvent& pTextInputEvent);
+
 
     // variables
     int displayWidth;

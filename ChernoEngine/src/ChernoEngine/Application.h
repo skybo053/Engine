@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "LayerStack.h"
 #include "ChernoEngine/Events/WindowClosedEvent.h"
+#include "ChernoEngine/ImGui/ImGuiLayer.h"
 
 namespace ChernoEngine
 {
@@ -24,14 +25,21 @@ namespace ChernoEngine
     int getWindowWidth() const;
     int getWindowHeight() const;
 
+    const static Application& getApplicationRef();
+
+    const Window& getWindow() const;
+
   private:
     //functions
     bool onWindowClosedEvent(WindowClosedEvent& pWindowClosedEvent);
 
     //members
-    std::unique_ptr<Window> window;
-    bool                    running;
-    LayerStack              layerStack;
+    std::unique_ptr<Window>     window;
+    ImGuiLayer*                 imGuiLayer;
+    bool                        running;
+    LayerStack                  layerStack;
+    
+    static Application*         application;  
   };
 
   Application* createApplication();

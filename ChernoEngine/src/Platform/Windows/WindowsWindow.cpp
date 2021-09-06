@@ -256,6 +256,12 @@ namespace ChernoEngine
   }
 
 
+  void* WindowsWindow::getNativeGLContext() const
+  {
+    return glContext;
+  }
+
+
   WindowsWindow::~WindowsWindow()
   {
     shutdown();

@@ -12,8 +12,9 @@ namespace ChernoEngine
   
   void LayerStack::pushLayer(Layer* pLayer)
   {
-    layers.emplace(layers.begin(), pLayer);
+    layers.emplace(layers.begin() + layerInsertIndex, pLayer);
     pLayer->onAttach();
+    ++layerInsertIndex;
   }
 
 
@@ -24,9 +25,15 @@ namespace ChernoEngine
   }
 
 
-  void LayerStack::popLayer(Layer* pLayer)
+  bool LayerStack::popLayer(Layer* pLayer)
   {
-    removeLayer(pLayer);
+    if(removeLayer(pLayer))
+    {
+      --layerInsertIndex;
+      return true;
+    }
+
+    return false;
   }
 
 
@@ -36,15 +43,19 @@ namespace ChernoEngine
   }
 
 
-  void LayerStack::removeLayer(Layer* pLayer)
+  bool LayerStack::removeLayer(Layer* pLayer)
   {
+    bool                          vLayerRemoved  = false;
     std::vector<Layer*>::iterator vEnd           = layers.end();
     std::vector<Layer*>::iterator vLayerLocation = std::find(layers.begin(), vEnd, pLayer);
 
     if(vLayerLocation != vEnd)
     {
       layers.erase(vLayerLocation);
+      vLayerRemoved = true;
     }
+
+    return vLayerRemoved;
   }
 
 

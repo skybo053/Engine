@@ -33,6 +33,12 @@ namespace ChernoEngine
   }
 
 
+  void Layer::onImGuiRender()
+  {
+    return;
+  }
+
+
   const std::string& Layer::getName() const
   {
     return layerName;

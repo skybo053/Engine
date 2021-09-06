@@ -15,7 +15,7 @@ namespace ChernoEngine
 
     void pushLayer(Layer* pLayer);
     void pushOverlay(Layer* pOverLay);
-    void popLayer(Layer* pLayer);
+    bool popLayer(Layer* pLayer);
     void popOverlay(Layer* pOverLay);
 
     void updateLayers() const;
@@ -26,10 +26,11 @@ namespace ChernoEngine
 
   private:
     //functions
-    void removeLayer(Layer* pLayer);
+    bool removeLayer(Layer* pLayer);
 
     //members
     std::vector<Layer*> layers;
+    unsigned int        layerInsertIndex = 0;
   };
 
 }
