@@ -25,15 +25,12 @@ namespace ChernoEngine
   }
 
 
-  bool LayerStack::popLayer(Layer* pLayer)
+  void LayerStack::popLayer(Layer* pLayer)
   {
     if(removeLayer(pLayer))
     {
       --layerInsertIndex;
-      return true;
     }
-
-    return false;
   }
 
 

@@ -15,7 +15,7 @@ namespace ChernoEngine
 
     void pushLayer(Layer* pLayer);
     void pushOverlay(Layer* pOverLay);
-    bool popLayer(Layer* pLayer);
+    void popLayer(Layer* pLayer);
     void popOverlay(Layer* pOverLay);
 
     void updateLayers() const;
