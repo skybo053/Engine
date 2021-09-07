@@ -60,7 +60,8 @@ project "ChernoEngine"
 		{
 			"CE_PLATFORM_WINDOWS",
 			"CE_BUILD_DLL",
-			"CE_ENABLE_ASSERTS"
+			"CE_ENABLE_ASSERTS",
+			"IMGUI_API=__declspec(dllexport)"
 		}
 		
 		postbuildcommands

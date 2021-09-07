@@ -1,5 +1,7 @@
 #include <ChernoEngine.h>
 
+#include "imgui/imgui.h"
+
 // ====================================
 //  Test layer to add to engine layers
 // =====================================
@@ -16,6 +18,13 @@ public:
   void onUpdate() override
   {
 
+  }
+
+  virtual void onImGuiRender() override
+  {
+    ImGui::Begin("test");
+    ImGui::Text("some text");
+    ImGui::End();
   }
 
   void onEvent(ChernoEngine::Event& pEvent) override
