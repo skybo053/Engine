@@ -7,6 +7,7 @@
 #include "ChernoEngine/Events/MouseClickEvent.h"
 #include "ChernoEngine/Events/MouseMotionEvent.h"
 #include "ChernoEngine/MouseButtons.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 #include "Window.h"
 
 #include <sdl/SDL.h>
@@ -26,7 +27,7 @@ namespace ChernoEngine
     void setVSync(int pInterval) const override;
     int getVSync() const override;
     void* getNativeWindow() const override;
-    void* getNativeGLContext() const override;
+    GraphicsContext* getGraphicsContext() const override;
 
   private:
     //functions
@@ -38,9 +39,9 @@ namespace ChernoEngine
     std::set<CE_MouseButtonCode> setMouseButtonsDown(uint32_t pButtonsDown) const;
 
     //members
-    SDL_Window* window = nullptr;
+    SDL_Window*      window          = nullptr;
+    GraphicsContext* graphicsContext = nullptr;
 
-    SDL_GLContext               glContext;
     std::function<void(Event&)> eventCallback;
   };
 

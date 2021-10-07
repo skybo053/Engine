@@ -12,6 +12,8 @@
 #include <sdl/SDL.h>
 #include "glad/glad.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 
 namespace ChernoEngine
 {
@@ -40,9 +42,10 @@ namespace ChernoEngine
     //ImGui::StyleColorsClassic();
 
     //Getting native window and OpenGL context from Application singleton
-    const Application& vApplication  = Application::getApplicationRef();
-    SDL_Window*        vSdlWindow    = static_cast<SDL_Window*>(vApplication.getWindow().getNativeWindow());
-    SDL_GLContext*     vSdlGLContext = static_cast<SDL_GLContext*>(vApplication.getWindow().getNativeGLContext());
+    const Application& vApplication   = Application::getApplicationRef();
+    SDL_Window*        vSdlWindow     = static_cast<SDL_Window*>(vApplication.getWindow().getNativeWindow());
+    OpenGLContext*     vOpenGLContext = static_cast<OpenGLContext*>(vApplication.getWindow().getGraphicsContext());
+    SDL_GLContext*     vSdlGLContext  = static_cast<SDL_GLContext*>(vOpenGLContext->getNativeGLContext());
 
     ImGui_ImplSDL2_InitForOpenGL(vSdlWindow, vSdlGLContext);
     ImGui_ImplOpenGL3_Init("#version 410");
@@ -77,7 +80,9 @@ namespace ChernoEngine
     ImGuiIO&           vIo          = ImGui::GetIO();
     const Application& vApplication = Application::getApplicationRef();
 
-    vIo.DisplaySize = ImVec2(vApplication.getWindow().getWidth(), vApplication.getWindow().getHeight());
+    vIo.DisplaySize = ImVec2(
+                        static_cast<float>(vApplication.getWindow().getWidth()), 
+                        static_cast<float>(vApplication.getWindow().getHeight()));
 
     //Rendering
     ImGui::Render();

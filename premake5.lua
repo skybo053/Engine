@@ -10,8 +10,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	
 project "ChernoEngine"
 	location "ChernoEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -52,8 +54,6 @@ project "ChernoEngine"
 		}
 	
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		
 		defines
@@ -61,33 +61,31 @@ project "ChernoEngine"
 			"CE_PLATFORM_WINDOWS",
 			"CE_BUILD_DLL",
 			"CE_ENABLE_ASSERTS",
-			"IMGUI_API=__declspec(dllexport)"
-		}
-		
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox")
+			"IMGUI_API=__declspec(dllexport)",
+			"_CRT_SECURE_NO_WARNINGS"
 		}
 		
 	filter "configurations:Debug"
 		defines "CE_DEBUG"
 		buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 	
 	filter "configurations:Release"
 		defines "CE_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 	
 	filter "configurations:Dist"
 		defines "CE_DIST"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 	
 project "Sandbox"
 	location "SandBox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+    staticruntime "on"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,8 +108,6 @@ project "Sandbox"
 	}
 	
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		
 		defines

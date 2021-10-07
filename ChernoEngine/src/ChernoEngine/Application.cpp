@@ -97,7 +97,7 @@ namespace ChernoEngine
 
   const Application& Application::getApplicationRef()
   {
-    return static_cast<Application&>(*application);
+    return *application;
   }
 
 

@@ -10,8 +10,6 @@
 #include "ChernoEngine/Events/TextInputEvent.h"
 #include "ChernoEngine/Keys.h"
 
-#include "glad/glad.h"
-
 
 namespace ChernoEngine
 {
@@ -50,16 +48,9 @@ namespace ChernoEngine
     }
 
     //set up openGL stuff
-    glContext = SDL_GL_CreateContext(window);
+    graphicsContext = new OpenGLContext(window);
 
-    if(gladLoadGLLoader(SDL_GL_GetProcAddress) == NULL)
-    {
-      CORELOGGER_ERROR("Failed to initialize Glad system!");
-    }
-    else
-    {
-      CORELOGGER_INFO("Glad system initialized!");
-    }
+    graphicsContext->init();
 
     setVSync(1);
   }
@@ -148,7 +139,7 @@ namespace ChernoEngine
       }
     }//end while PollEvents
    
-    SDL_GL_SwapWindow(window);
+    graphicsContext->swapBuffers();
   }
 
 
@@ -256,9 +247,9 @@ namespace ChernoEngine
   }
 
 
-  void* WindowsWindow::getNativeGLContext() const
+  GraphicsContext* WindowsWindow::getGraphicsContext() const
   {
-    return glContext;
+    return graphicsContext;
   }
 
 

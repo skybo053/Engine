@@ -2,10 +2,14 @@
 #define CORE_H
 
 #ifdef CE_PLATFORM_WINDOWS
-  #ifdef CE_BUILD_DLL
-    #define CHERNOENGINE_API __declspec(dllexport)
+  #ifdef CE_DYNAMIC_LINK
+    #ifdef CE_BUILD_DLL
+      #define CHERNOENGINE_API __declspec(dllexport)
+    #else
+      #define CHERNOENGINE_API __declspec(dllimport)
+    #endif
   #else
-    #define CHERNOENGINE_API __declspec(dllimport)
+    #define CHERNOENGINE_API
   #endif
 #else
   #error Engine only supports Windows platforms
