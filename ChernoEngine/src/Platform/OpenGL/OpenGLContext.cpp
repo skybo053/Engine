@@ -21,6 +21,10 @@ namespace ChernoEngine
     {
       CORELOGGER_INFO("Glad system initialized!");
     }
+    
+    CORELOGGER_INFO("GL Vendor: {0}", glGetString(GL_VENDOR));
+    CORELOGGER_INFO("GL Renderer: {0}", glGetString(GL_RENDERER));
+    CORELOGGER_INFO("GL Version: {0}", glGetString(GL_VERSION));
   }
 
 

@@ -40,6 +40,10 @@ namespace ChernoEngine
     LayerStack                  layerStack;
     
     static Application*         application;  
+
+    unsigned int vertexArray;
+    unsigned int vertexBuffer;
+    unsigned int indexBuffer;
   };
 
   Application* createApplication();
