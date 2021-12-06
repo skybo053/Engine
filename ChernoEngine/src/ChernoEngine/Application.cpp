@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Log.h"
 #include "glad/glad.h"
-
+#include "Platform/OpenGL/OpenGLShader.h"
 
 namespace ChernoEngine
 {
@@ -23,25 +23,52 @@ namespace ChernoEngine
     glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);
 
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-    float vertices[3 * 3] = 
+    float vertices[9] = 
     {
       -0.5F, -0.5F, 0.0F,
       0.5F, -0.5F, 0.0F,
       0.0F, 0.5F, 0.0F,
     };
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    uint32_t indices[3] = { 0, 1, 2 };
+
+    vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
+    indexBuffer.reset(IndexBuffer::create(indices, 3));
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
-    
-    glGenBuffers(1, &indexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
-    int indices[3] = {0, 1, 2};
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    //temporarily hardcode vertex shader here
+    std::string vVertexShaderSource = 
+    R"(
+
+    #version 330 core
+  
+    layout(location = 0) in vec3 position;
+
+    void main()
+    {
+      gl_Position = vec4(position, 1.0);
+    }
+    )";
+    // end hardcoded vertex shader
+
+    //temporarily hardcode fragment shader here
+    std::string vFragmentShaderSource =
+    R"(
+
+    #version 330 core
+  
+    layout(location = 0) out vec4 color;
+
+    void main()
+    {
+      color = vec4(0.8, 0.2, 0.3, 1.0);
+    }
+    )";
+    // end hardcoded fragment shader
+
+    shader = std::make_unique<OpenGLShader>(vVertexShaderSource, vFragmentShaderSource);
   }
 
 
@@ -58,8 +85,10 @@ namespace ChernoEngine
       glClearColor(0.1F, 0.1F, 0.1F, 1);
       glClear(GL_COLOR_BUFFER_BIT);
       
+      shader->bind();
+
       glBindVertexArray(vertexArray);
-      glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, NULL);
+      glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, NULL);
 
       layerStack.updateLayers();
 

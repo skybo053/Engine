@@ -6,6 +6,8 @@
 #include "LayerStack.h"
 #include "ChernoEngine/Events/WindowClosedEvent.h"
 #include "ChernoEngine/ImGui/ImGuiLayer.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer/Buffer.h"
 
 namespace ChernoEngine
 {
@@ -41,9 +43,12 @@ namespace ChernoEngine
     
     static Application*         application;  
 
+    //openGL stuff
     unsigned int vertexArray;
-    unsigned int vertexBuffer;
-    unsigned int indexBuffer;
+
+    std::unique_ptr<Shader> shader;
+    std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
   };
 
   Application* createApplication();
