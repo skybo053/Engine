@@ -1,6 +1,7 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
+#include "ChernoEngine/Renderer/BufferLayout.h"
 
 namespace ChernoEngine
 {
@@ -13,6 +14,9 @@ namespace ChernoEngine
 
     virtual void bind() const = 0;
     virtual void unbind() const = 0;
+
+    virtual void setBufferLayout(const BufferLayout& pBufferLayout) = 0;
+    virtual const BufferLayout& getBufferLayout() const = 0;
 
     static VertexBuffer* create(float* pVertices, uint32_t pSize);
 

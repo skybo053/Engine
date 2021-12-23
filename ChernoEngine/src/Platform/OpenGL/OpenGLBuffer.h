@@ -2,6 +2,7 @@
 #define OPENGLBUFFER_H
 
 #include "ChernoEngine/Renderer/Buffer.h"
+#include "ChernoEngine/Renderer/BufferLayout.h"
 
 namespace ChernoEngine
 {
@@ -14,10 +15,15 @@ namespace ChernoEngine
     virtual void bind() const override;
     virtual void unbind() const override;
 
+    virtual void setBufferLayout(const BufferLayout& pBufferLayout) override;
+    virtual const BufferLayout& getBufferLayout() const override;
+
     virtual ~OpenGLVertexBuffer();
 
   private:
-    uint32_t rendererId;
+    uint32_t     rendererId;
+    BufferLayout bufferLayout;
+
   };
 
   class OpenGLIndexBuffer : public IndexBuffer

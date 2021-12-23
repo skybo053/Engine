@@ -26,6 +26,16 @@ namespace ChernoEngine
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
+  void OpenGLVertexBuffer::setBufferLayout(const BufferLayout& pBufferLayout)
+  {
+    bufferLayout = pBufferLayout;
+  }
+
+  const BufferLayout& OpenGLVertexBuffer::getBufferLayout() const
+  {
+    return bufferLayout;
+  }
+
   OpenGLVertexBuffer::~OpenGLVertexBuffer()
   {
     glDeleteBuffers(1, &rendererId);
