@@ -1,9 +1,10 @@
 #include "Pch.h"
 #include "Application.h"
 #include "Log.h"
-#include "glad/glad.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "ChernoEngine/Renderer/BufferLayout.h"
+#include "ChernoEngine/Renderer/Renderer.h"
+
 
 namespace ChernoEngine
 {
@@ -20,9 +21,6 @@ namespace ChernoEngine
         std::bind(&Application::onEvent, this, std::placeholders::_1));
 
     layerStack.pushOverlay(imGuiLayer);
-  
-    glGenVertexArrays(1, &vertexArray);
-    glBindVertexArray(vertexArray);
 
     float vertices[3 * 7] = 
     {
@@ -33,9 +31,9 @@ namespace ChernoEngine
 
     uint32_t indices[3] = { 0, 1, 2 };
 
+    vertexArray.reset(VertexArray::create());
     vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
     indexBuffer.reset(IndexBuffer::create(indices, 3));
-
 
     BufferLayout vBufferLayout = 
     {
@@ -43,22 +41,32 @@ namespace ChernoEngine
     };
 
     vertexBuffer->setBufferLayout(vBufferLayout);
+    vertexArray->addVertexBuffer(vertexBuffer);
+    vertexArray->setIndexBuffer(indexBuffer);
 
-    uint32_t vIndex = 0;
-    for(const BufferElement& vBufferElement : vertexBuffer->getBufferLayout())
+
+    // temp code for creating square
+    float squareVertices[] = 
     {
-      glEnableVertexAttribArray(vIndex);
+      -0.5F, -0.5F, 0.0F,     1.0F, 0.0F, 1.0F, 1.0F,
+       0.5F, -0.5F, 0.0F,     0.0F, 0.0F, 1.0F, 1.0F,
+       0.5F,  0.5F, 0.0F,     1.0F, 1.0F, 0.0F, 1.0F,
+      -0.5,   0.5F, 0.0F,     1.0F, 1.0F, 0.0F, 1.0F
+    };
 
-      glVertexAttribPointer(
-        vIndex, 
-        vBufferElement.componentCount, 
-        convertToOpenGLType(vBufferElement.shaderDataType), 
-        vBufferElement.normalized ? GL_TRUE : GL_FALSE, 
-        vBufferLayout.getStride(), 
-        (const void*)vBufferElement.offset);
+    //unsigned int squareIndices[] = {0, 1, 2, 2, 3, 0};
+    unsigned int squareIndices[] = { 1, 2, 0, 0, 2, 3 };
 
-      ++vIndex;
-    }
+    squareVertexArray.reset(VertexArray::create());
+    vertexBuffer.reset(VertexBuffer::create(squareVertices, sizeof(squareVertices)));
+    indexBuffer.reset(IndexBuffer::create(squareIndices, 6));
+
+    vertexBuffer->setBufferLayout(vBufferLayout);    
+    squareVertexArray->addVertexBuffer(vertexBuffer);
+    squareVertexArray->setIndexBuffer(indexBuffer);  
+    // end temp code
+
+
 
     //temporarily hardcode vertex shader here
     std::string vVertexShaderSource = 
@@ -114,13 +122,16 @@ namespace ChernoEngine
   {
     while(running)
     {
-      glClearColor(0.1F, 0.1F, 0.1F, 1);
-      glClear(GL_COLOR_BUFFER_BIT);
-      
-      shader->bind();
+      RenderCommand::setClearColor(glm::vec4(0.1f, 0.1f, 0.1F, 1));
+      RenderCommand::clear();
 
-      glBindVertexArray(vertexArray);
-      glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, NULL);
+      Renderer::beginScene();
+
+      shader->bind();
+      
+      Renderer::submit(squareVertexArray);
+
+      Renderer::endScene();
 
       layerStack.updateLayers();
 

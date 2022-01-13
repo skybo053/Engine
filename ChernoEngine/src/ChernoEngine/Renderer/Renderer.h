@@ -1,16 +1,11 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "ChernoEngine/Renderer/RenderCommand.h"
+
 namespace ChernoEngine
 {
-
-  enum class RendererAPI
-  {
-    NONE,
-    OPEN_GL,
-    DIRECT_X
-  };
-
+  
   class Renderer
   {
   public:
@@ -18,7 +13,11 @@ namespace ChernoEngine
     Renderer();
     ~Renderer();
 
-    static constexpr RendererAPI rendererApi = RendererAPI::OPEN_GL;
+    static void beginScene();
+    static void endScene();
+
+    static void submit(const std::shared_ptr<VertexArray>& pVertexArray);
+
   private:
   };
 

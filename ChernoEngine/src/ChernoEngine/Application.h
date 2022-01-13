@@ -8,6 +8,7 @@
 #include "ChernoEngine/ImGui/ImGuiLayer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "Renderer/Buffer.h"
+#include "ChernoEngine/Renderer/VertexArray.h"
 
 namespace ChernoEngine
 {
@@ -41,14 +42,14 @@ namespace ChernoEngine
     bool                        running;
     LayerStack                  layerStack;
     
-    static Application*         application;  
+    static Application*         application;
 
-    //openGL stuff
-    unsigned int vertexArray;
+    std::shared_ptr<VertexBuffer> vertexBuffer;
+    std::shared_ptr<IndexBuffer>  indexBuffer;
+    std::shared_ptr<VertexArray>  vertexArray;
+    std::shared_ptr<Shader>       shader;
 
-    std::unique_ptr<Shader> shader;
-    std::unique_ptr<VertexBuffer> vertexBuffer;
-    std::unique_ptr<IndexBuffer> indexBuffer;
+    std::shared_ptr<VertexArray> squareVertexArray;
   };
 
   Application* createApplication();

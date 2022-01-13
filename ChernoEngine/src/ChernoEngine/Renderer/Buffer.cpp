@@ -8,17 +8,17 @@ namespace ChernoEngine
 
   VertexBuffer* VertexBuffer::create(float* pVertices, uint32_t pSize)
   {
-    switch(Renderer::rendererApi)
+    switch(RendererAPI::ACTIVE_API)
     {
-      case RendererAPI::OPEN_GL:
+      case RendererAPI::OPENGL:
       {
         return new OpenGLVertexBuffer(pVertices, pSize);
       }
       case RendererAPI::NONE:
-      case RendererAPI::DIRECT_X:
+      case RendererAPI::DIRECTX:
       default:
 
-        CORELOGGER_ERROR("No Renderer API defined for API: {}", Renderer::rendererApi);
+        CORELOGGER_ERROR("No Renderer API defined for API: {}", RendererAPI::ACTIVE_API);
 
         return nullptr;
     }
@@ -27,17 +27,17 @@ namespace ChernoEngine
 
   IndexBuffer* IndexBuffer::create(uint32_t* pIndices, uint32_t pCount)
   {
-    switch(Renderer::rendererApi)
+    switch(RendererAPI::ACTIVE_API)
     {
-    case RendererAPI::OPEN_GL:
+    case RendererAPI::OPENGL:
     {
       return new OpenGLIndexBuffer(pIndices, pCount);
     }
     case RendererAPI::NONE:
-    case RendererAPI::DIRECT_X:
+    case RendererAPI::DIRECTX:
     default:
 
-      CORELOGGER_ERROR("No Renderer API defined for API: {}", Renderer::rendererApi);
+      CORELOGGER_ERROR("No Renderer API defined for API: {}", RendererAPI::ACTIVE_API);
 
       return nullptr;
     }
